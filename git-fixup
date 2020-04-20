@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Usage: git fixup [BRANCH]
+# Allows the selection of a commit to be used with `rebase --autosquash`.
+
+# We actually want globbing and word splitting for the FZF_OPTIONS variable.
+# shellcheck disable=SC2086
+
+# TODO: completion for branches.
+
+# Quit when there's an error.
+set -e
+
+# Use the first argument as branch or fallback to the configuration or to the
+# default value.
+if [[ -n "$1" ]]; then
+  BRANCH="$1"
+else
+  BRANCH=$(git config --get 'fixup.branch' || echo 'origin/master')
+fi
+
+FZF_OPTIONS=$(git config --get 'fixup.fzfOptions')
+
+# Add option to choose between display sha or commit message.
+
+# Pick from those commits.
+# TODO: Make the picker configurable.
+sha1=$(git log "$BRANCH"..HEAD --pretty=format:'%H' | fzf $FZF_OPTIONS --preview='git show {}')
+
+# Commit!
+git commit --fixup="$sha1"

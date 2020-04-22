@@ -5,14 +5,10 @@
 
 ## Installation
 
-<!--
-
 With [Homebrew](brew.sh)
 ```sh
 brew install aliou/tools/git-fixup
 ```
-
--->
 
 Manually
 ```

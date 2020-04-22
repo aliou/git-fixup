@@ -11,17 +11,18 @@
 # Quit when there's an error.
 set -e
 
+default_branch='origin/master'
+default_fzf_options='--height 40% --reverse'
+
 # Use the first argument as branch or fallback to the configuration or to the
 # default value.
 if [[ -n "$1" ]]; then
   BRANCH="$1"
 else
-  BRANCH=$(git config --get 'fixup.branch' || echo 'origin/master')
+  BRANCH=$(git config --get 'fixup.branch' || echo $default_branch)
 fi
 
-FZF_OPTIONS=$(git config --get 'fixup.fzfOptions')
-
-# Add option to choose between display sha or commit message.
+FZF_OPTIONS=$(git config --get 'fixup.fzfOptions' || echo $default_fzf_options)
 
 # Pick from those commits.
 # TODO: Make the picker configurable.

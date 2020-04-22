@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Usage: git fixup [BRANCH]
 # Allows the selection of a commit to be used with `rebase --autosquash`.
+# v1.0.0
 
 # We actually want globbing and word splitting for the FZF_OPTIONS variable.
 # shellcheck disable=SC2086
